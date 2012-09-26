@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0035)http://www.m-i-b.com.ar/letters/en/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Zigbee - ProcessingJS</title>
+	<link rel="stylesheet" href="./test_files/styles.css" type="text/css" media="screen">
+	<script src="jquery-1.8.2.min.js"></script>
+	<script src="urlEncode.js"></script>
+<script type="text/javascript">
+    var full = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+    http_server = full+"/";
+
+        var json_data;
+		jQuery.noConflict();
+        jQuery.ajax({
+            url: http_server+"api.cgi?allnodes=1",
+            timeout:8000,
+			async: false,	
+            statusCode: {
+                404: function() 
+                {
+                    alert("server page not found");
+                }
+            },
+            error: function (xmlHttpRequest, error)
+            {
+                var ts = Math.round((new Date()).getTime() / 1000);
+                //$(_this).parent().children("label:last").text(" ajax error " + error +  ts);
+
+                console.log(xmlHttpRequest, error);
+            },
+            success: function( data, textStatus, jqXHR)
+            {
+//              var obj = $.parseJSON( data );
+                //json_data = eval('(' + data + ')');
+				json_data = data;
+///				alert(json_data);
+			}
+		});
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+	<div class="content language">
+		<a href="http://www.m-i-b.com.ar/letters/es/">Ver en Español</a>
+	</div>
+
+	<div class="title">
+		<h1>Zigbee Control Panel</h1>
+		<p>Information visualization / ProcessingJS</p>
+	</div>
+	
+	<div class="content">
+		<script src="test_files/processing-1.0.0.min.js"></script>
+		<canvas datasrc="letters.pjs" width="800" height="600" id="__processing0"></canvas>
+	</div>
+	
+	<div class="left">
+		<div class="content concept">
+			<h2>Concept</h2> 
+			<p>This project is for simple control zigbee devices ,turn on/off lights.</p>
+		</div>
+		<div class="content concept">
+			<h2><a href="check.html" >Check System</a></h2> 
+		</div>
+	</div>
+		
+	<div class="content examples">
+		
+		点击一下
+	</div>
+	
+	<div id="footer"> 
+		<p>© Copyright 2010 - <a href="http://www.m-i-b.com.ar/">Martin Ignacio Bereciartua</a></p> 
+	</div>
+
+</div>
+
+
+
+</body></html>

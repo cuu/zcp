@@ -1,0 +1,4 @@
+主卧灯泡1|ed fc 02
+客厅灯泡2|d8 57 a7 ed fc 02
+狗窝灯|d8 2f 0b ed fc 02
+DTK灯|d8 eb 45 ed fc 02

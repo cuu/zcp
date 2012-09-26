@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+			 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<title>iCheckbox demo page</title>
+	<style type="text/css">
+	.iCheckbox_container {
+		height:27px;
+		width:94px;
+		position: relative;
+		overflow: hidden;
+	}
+	.iCheckbox_switch {
+		height:27px;
+		width:94px;
+		background-image:url(images/iphone_switch.png); /* your actual slider image */
+		background-repeat:none;
+		background-position:0px;
+	}
+	.iCheckbox_checkbox { /* this is kinda moot since it gets hidden, but here to let you know it exists */
+	}
+	.iCheckbox_two_container {
+		height:27px;
+		width:94px;
+		position: relative;
+		overflow: hidden;
+	}
+	.iCheckbox_two_switch {
+		height:16px;
+		width:36px;
+		background-image:url(images/bpm-lozenge.png); /* your actual slider image */
+		background-repeat:none;
+		background-position:0px;
+	}
+	.iCheckbox_two_checkbox { /* this is kinda moot since it gets hidden, but here to let you know it exists */
+	}
+	/*
+	* below are styles to just pretty up the demo page... they have nothing to do with iCheckbox.
+	*/
+	.body_conts{
+		width:800px;
+		margin:0px;
+		margin-left:auto;
+		margin-right:auto;
+		font-family:Arial, Helvetica, sans-serif;
+		font-size:12px;
+	}
+	.magic_pink {
+		background-color: #FF00FF;
+		padding: 5px;
+		margin:0px;
+	}
+	</style>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js" type="text/javascript"></script>
+	<script src="jquery.iphone-switch.js" type="text/javascript"></script>
+	<script src="jquery.iCheckbox.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	// mimic console log for IE - must be careful what to log
+	if ( typeof(console) == 'undefined' ) {
+		var console = {};
+	}
+	if ( typeof(console.log) !== 'function' ) {
+		console['log'] = function ( msg ) {
+			alert(msg);
+		}
+	}
+
+	// init the checkboxes at dom ready
+	$(document).ready( function () {
+		/*
+		* first example - defaults
+		*/
+		$('#checkOne').iCheckbox();
+		$('#checkOne').change(function(e){
+			if ( $('#checkOne').attr('checked') == true ) {
+				console.log('checkbox one checked: '+$(e.target).attr('checked'));
+			}
+		});
+		/*
+		* second example - custom
+		*/
+		var checkTwoOpts = {
+			switch_container_src: 'images/bpm-frame.gif',
+			class_container: 'iCheckbox_two_container',
+			class_switch: 'iCheckbox_two_switch',
+			class_checkbox: 'iCheckbox_two_checkbox',
+			switch_speed: 450,
+			switch_swing: -18,
+			checkbox_hide: false
+			};
+		$('#checkTwo').iCheckbox("on", checkTwoOpts );
+		$('#checkTwo').change(function(e){
+			if ( $('#checkOne').attr('checked') == true ) {
+				console.log('checkbox two checked: '+$(e.target).attr('checked'));
+			}
+		});
+	});
+	</script>
+</head>
+<body>
+	<div class="body_conts">
+		<h2>iCheckbox - Inspired Checkbox v0.1</h2>
+		<ul>
+			<li>iphoneSwitch Author: <strong>Daniel LaBare</strong> 2/4/2008</li>
+			<li>iCheckbox Author: <strong>Bryn P. Mosher</strong> 2/26/2010-2/27/2010</li>
+		</ul>
+		<p>
+			Convert a checkbox or multiple checkboxes into iphone style switches.
+			This is based on the jQuery iphoneSwitch plugin by Daniel LaBare.
+		</p>
+		<h2>Example:</h2>
+		<p>
+			Here's a sample checkbox slider control using the default CSS classes and Daniel LaBare's original images: <input type="checkbox" id="checkOne" />.
+			This one actually controls the display of the &quot;debug&quot; messages used for our examples on this page (Firebug console messages and, failing that, alert() boxes).
+		</p>
+		<p>
+			Here's another slider control using CSS classes assigned at creation with a custom look and the corresponding checkbox still visible: <input type="checkbox" id="checkTwo" />.
+			This slider does nothing more than send &quot;debug&quot; messages.
+		</p>
+		<h2>Features:</h2>
+		<ul>
+			<li>Because checkboxes are used, this is compatable with having javascript off for form submission.</li>
+			<li>Affects only checkboxes.</li>
+			<li>Synchronizes the actual state of the checkbox for on or off status.</li>
+			<li>Completely self-contained for each checkbox.</li>
+			<li>Changes fire the onchange event of your checkbox.</li>
+			<li>Relies purely on css for styling... no passing anything but your slider image.</li>
+			<li>Because functionality is decoupled from CSS, you can assign custom CSS classes if you wish making it possible for multiple version per page.</li>
+			<li>Completely inline like a normal checkbox. No sliding-door-float madness.</li>
+			<li>Can show or hide the original checkbox depending on settings.</li>
+		</ul>
+		<p>
+			To aceive this, a &lt;span&gt; tag is created around the checkbox.
+			An &lt;img&gt; is then appended inside of this &lt;span&gt;.
+			Finally, the checkbox &lt;input&gt; is optionally hidden.
+			The &lt;span&gt; tag can be styled any way you wish.
+			It is simply a container for the rest.
+			The actual sliding image is assigned to the created &lt;img&gt; via the &quot;background-image&quot; CSS property and its animation is controlled programatically via the &quot;background-position&quot; CSS property.
+		</p>
+		<h2>Syntax</h2>
+		<p>
+			iCheckbox has the following syntax:
+<pre>var options = {
+	switch_container_src: 'images/bpm-frame.gif',
+	class_container: 'iCheckbox_two_container',
+	class_switch: 'iCheckbox_two_switch',
+	class_checkbox: 'iCheckbox_two_checkbox',
+	switch_speed: 450,
+	switch_swing: -18,
+	checkbox_hide: false
+	};
+var initial_state = "off";
+$('.some_checkbox').iCheckbox( initial_state, options );</pre>
+		</p>
+		<h2>Option List</h2>
+			<ul>
+				<li>
+					<strong>switch_container_src</strong>
+					&quot;switch_container_src&quot; is the outer frame image of the slider.
+					This should be a GIF (if you want IE6 support) or a PNG with a cutout center in the shape of your choice.
+					The image used for the second example above can be seen here.
+					A &quot;magic pink&quot; square has been drawn around it so that you can visualize how little the image actually covers.
+					It is merely the white corners and the grey inner border.
+					<div class="magic_pink"><img src="images/bpm-frame.gif" /></div>
+					The &quot;switch_container_src&quot; should never be excluded.
+					If anything, you should assign a fully transparent image to it that fits your desired dimensions.
+					The default value of &quot;switch_container_src&quot; is &quot;images/iphone_switch_container.gif&quot;.
+				</li>
+				<li>
+					<strong>switch_height</strong>
+					&quot;switch_height&quot; is the height of your slider construct including the outer frame in pixels.
+					This usually matches the height dimension of your &quot;switch_container_src&quot; image.
+					The default value is &quot;27&quot;.
+				</li>
+				<li>
+					<strong>switch_width</strong>
+					&quot;switch_width&quot; is the width of your slider construct including the outer frame in pixels.
+					This usually matches the width dimension of your &quot;switch_container_src&quot; image.
+					The default value is &quot;94&quot;.
+				</li>
+				<li>
+					<strong>switch_speed</strong>
+					&quot;switch_speed&quot; is the amount of time in miliseconds that the animation should run.
+					You should note that the onchange() event for the given checkbox will not fire until the animation ends.
+					Thus, giving this a large value will delay the onchange() event just as much.
+					The default value is &quot;150&quot;.
+				</li>
+				<li>
+					<strong>switch_swing</strong>
+					&quot;switch_swing&quot; is the amount that your actual slider element image should travel to arrive at the &quot;off&quot; state in pixels.
+					This correlates directly to the CSS background-position property.
+					The &quot;switch_swing&quot; amount is usually a negative number relative to the amount of &quot;peek-a-boo&quot; space required by your image.
+					For example, the image below is 54 pixels wide.
+					We allow for 18 pixels of our state showing, so the &quot;switch_swing&quot; is &quot;-18&quot;.
+					<div style="text-align:center"><img src="images/bpm-lozenge.png" /></div>
+					The "on" state assumes this image to have CSS &quot;background-position: 0px 0px;&quot;.
+					The default value of &quot;switch_swing&quot; is &quot;-53&quot;.
+				</li>
+				<li>
+					<strong>class_container</strong>
+					&quot;class_container&quot; is the CSS class name that will be applied to the &lt;span&gt; container.
+					This name need not match any particular pattern for this plugin to work.
+					The default value is &quot;iCheckbox_container&quot;.
+				</li>
+				<li>
+					<strong>class_switch</strong>
+					&quot;class_switch&quot; is the CSS class name that will be applied to the &lt;img&gt; sliding switch.
+					This name need not match any particular pattern for this plugin to work, however the &quot;background-image&quot; CSS property must be set to your desired sliding image.
+					The default value is &quot;iCheckbox_switch&quot;.
+				</li>
+				<li>
+					<strong>class_checkbox</strong>
+					&quot;class_checkbox&quot; is the CSS class name that will be applied to the checkbox &lt;input&gt;.
+					This name need not match any particular pattern for this plugin to work.
+					Assigning this should only be used if you wish the checkbox to remain visible or you need to override how it is hidden.
+					The default value is &quot;iCheckbox_checkbox&quot;.
+				</li>
+				<li>
+					<strong>checkbox_hide</strong>
+					&quot;checkbox_hide&quot; controls whether or not the original checkbox &lt;input&gt; is hidden after the slider control is created.
+					Setting &quot;checkbox_hide&quot; to boolean &quot;true&quot; will cause the checkbox to be hidden automatically.
+					The default value is boolean &quot;true&quot;.
+				</li>
+			</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+(set 'nldb:tables '(addrs))
+
+(set 'addrs '(
+  (saddr mac parent timestamp)))
+
