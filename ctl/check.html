@@ -15,7 +15,7 @@
         var json_data;
 		jQuery.noConflict();
         jQuery.ajax({
-            url: http_server+"api.cgi?allnodes=1",
+            url: http_server+"api.cgi?allchild=1",
             timeout:8000,
 			async: false,	
             statusCode: {
@@ -26,7 +26,7 @@
             },
             error: function (xmlHttpRequest, error)
             {
-                var ts = Math.round((new Date()).getTime() / 1000);
+//                var ts = Math.round((new Date()).getTime() / 1000);
                 //$(_this).parent().children("label:last").text(" ajax error " + error +  ts);
 
                 console.log(xmlHttpRequest, error);
@@ -34,16 +34,42 @@
             success: function( data, textStatus, jqXHR)
             {
 //              var obj = $.parseJSON( data );
-                //json_data = eval('(' + data + ')');
-				json_data = data.split("\n");
+                json_data = eval('(' + data + ')');
+				//json_data = data.split("\n");
 
 ///				alert(json_data);
 			}
 		});
 
 		jQuery(document).ready(function($){ 
-					
-			$("#log_win").html("5d 3f ,Room1 Light 1 ........ok<br /> 4d 4f ....ok <br />");		
+		
+			$("#log_win").html("Checking...<br />").delay(1800).fadeIn(1400);	
+
+			for(var i = 0; i < json_data.length; i++)
+			{
+					$.ajax({
+						url: http_server+"test.cgi?cmd="+"6d "+json_data[i][2],
+						timeout:3000,
+						async: false,
+						statusCode: { 404: function(){ alert("server page not found"); } },
+						error: function(xmlHttpRequest, error)
+						{
+							console.log(xmlHttpRequest,error);
+						},
+						success: function(data, textStatus, jqXHR)
+						{
+							var d_a = data.split(" ");
+							if( d_a[0] == "ac")
+							{
+								$("#log_win").html( $("#log_win").html() + json_data[i][2] + " is OK <br />").delay(500);
+							}else
+							{
+								$("#log_win").html( $("#log_win").html() + json_data[i][2] + " is DOWN <br />").delay(500);
+							}
+						}
+					});					
+//					$("#log_win").html( $("#log_win").html() + json_data[i][2] + "<br />");
+			}		
 		});
 
 </script>
@@ -78,7 +104,7 @@
 			<p>This project is for simple control zigbee devices ,turn on/off lights.</p>
 		</div>
 		<div class="content concept">
-			<h2><a href="check.html" >Check System</a></h2> 
+			<h2><a href="index.html" >Return</a></h2> 
 		</div>
 	</div>
 		

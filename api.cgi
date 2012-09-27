@@ -4,7 +4,7 @@
 (load "cgi.lsp")
 (load "json.lsp")
 
-;;(setq server "127.0.0.1")  (setq port 4711)
+(setq server "127.0.0.1")  (setq port 4711)
 
 (print "Content-type: text/html;charset=utf8\r\n\r\n")
 
@@ -52,27 +52,21 @@
 	)
 )
 
+
 (if-not (nil? (CGI:get "allchild"))
     (begin
         (load "CKV.lsp")
-		(load "newlisp-projects/nldb/nldb.lsp")
-		(load "tables.nldb")
-		(setq ret '() )
+        (load "NICKS.lsp")
+        (setq ret '() )
         (dolist (x (CKV))
-						(setq _til (nldb:select-rows 'alias '(= mac (nth 0 (nth 1 x)))))
-						(if-not (empty? _til)
-							(begin
-	                    		(push (list x (nth 1 (nth 0 _til)) (nth 2 (nth 0 _til))   ) ret -1 )
-	                    		
-	                    	)
-							(push (list x "") ret -1 )
-						)
+                        (setq short_addr (nth 0 x)) 
+                        (setq mac_addr (nth 0 (nth 1 x)))
 
-        )
-
-		(print (Json:lisp->json ret))
-        (exit)
-    )
+                (push (list  (nth 0 (NICKS mac_addr)) (nth 1 (NICKS mac_addr)) (string short_addr) (string "d8 " short_addr " ed fc 02") ) ret -1)
+        )   
+       (print (Json:lisp->json ret))
+       (exit)
+    )   
 )
 
 

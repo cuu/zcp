@@ -11,7 +11,7 @@
 
 (if-not (nil? (CGI:get "cmd"))
 	(begin
-		(setq evl_str (format "(net-eval \"%s\" %d \"(test \\\"%s\\\" 200 )\" 4000)" 
+		(setq evl_str (format "(net-eval \"%s\" %d \"(test \\\"%s\\\" 500 )\" 4000)" 
 				server port (CGI:get "cmd")))
 	
 		(print (eval-string evl_str))

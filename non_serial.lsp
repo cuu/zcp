@@ -169,7 +169,7 @@
 	(setq nw (write wusbdev query  len))
 ;;	(let tmp_lst nil)
 
-	(println "into run_serial " query)
+;;	(println "into run_serial " query)
 	(sleep timeout);; give enough time for reading data to share mem
 ;;	(println "sleeped" timeout)
 	(if-not (nil? nw)
@@ -183,7 +183,7 @@
 						;(println "1st " (share content))
 						(if (and (= (nth 0 (share content)) "c" ) (= (nth 1 (share content)) "e"))
 							(begin
-								(assert "dealing with 0xce")
+							;	(assert "dealing with 0xce")
 								
 ;								(if (= (length query) 1);; ca
 ;										(setq  cur_par "00 00")			
@@ -202,22 +202,22 @@
 								;(println tmp_lst)
 								(if (> (int (nth 1 tmp_lst) 0 16) 0)
 									(begin
-										(println "1st tmp_lst > 0 " tmp_lst)
+									;	(println "1st tmp_lst > 0 " tmp_lst)
 										(for (x 2 (- (length tmp_lst) 1) 2  (>= x (- (length tmp_lst) 1)) )
-											(println "x= " x)
-											(println tmp_lst)
+										;	(println "x= " x)
+									;		(println tmp_lst)
 											(setq short_addr (string (nth x tmp_lst) " " (nth (+ x 1) tmp_lst)) )
 											
 										;;	(if (nil? (CKV short_addr) )
 												(CKV short_addr (list nil cur_par (date-value)) )
 										;;	)
-											(println " spawn ca " short_addr)
+									;		(println " spawn ca " short_addr)
 											(test (string "ca " short_addr) rw_iner)
-											(println "af x= " x)	
+									;		(println "af x= " x)	
 										)
 											
 									)
-									(println "1st tmp_lst <= 0")
+									;(println "1st tmp_lst <= 0")
 								)
 								)
 								(save "CKV.lsp" 'CKV);;; next time,use (CKV) for all short address,then get live mac address, stored in CKV,the all macs 
@@ -232,6 +232,7 @@
 								(setq (nth 0  short_addr_ckv) (chop  (join (map string (slice tmp_lst 3) ) " ") 1) )
 								(CKV short_addr short_addr_ckv)
 								(save "CKV.lsp" 'CKV)
+								
 							)
 						)
 						;(println "in the last")	
@@ -277,6 +278,10 @@
 		(begin
 			(println "exiting now "  (getpid))
 		;;	(abort (getpid))
+		)
+		(= (get-pid) 0)
+		(begin
+			ret
 		)
 	)
 )
