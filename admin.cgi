@@ -1,4 +1,4 @@
-#!/bin/env newlisp
+#!/usr/bin/newlisp
 
 (load "cgi.lsp")
 

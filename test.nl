@@ -1,11 +1,5 @@
-#!/usr/bin/newlisp
-
-(load "cgi.lsp")
-
+<%
 (setq server "127.0.0.1")  (setq port 4711)  ;;; for tcp and serial server
-(print "Access-Control-Allow-Origin:*\r\n")
-(print "Content-type: text/html\r\n\r\n")
-
 
 ;(sleep 3000)
 
@@ -26,4 +20,6 @@
     )
 )
 
+
+%>
 

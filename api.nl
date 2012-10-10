@@ -1,13 +1,6 @@
-#!/usr/bin/newlisp
-
-(load "util.lsp")
-(load "cgi.lsp")
-(load "json.lsp")
+<%
 
 (setq server "127.0.0.1")  (setq port 4711)
-
-(print "Content-type: text/html;charset=utf8\r\n\r\n")
-
 
 ;(sleep 3000)
 
@@ -21,7 +14,6 @@
 				)
 		)	
 		(print ccount)
-		(exit)
 	)
 )
 
@@ -48,7 +40,6 @@
 						)
 					true
 					) )) (inc num))
-		(exit)
 	)
 )
 
@@ -65,7 +56,6 @@
                 (push (list  (nth 0 (NICKS mac_addr)) (nth 1 (NICKS mac_addr)) (string short_addr) (string "d8 " short_addr " ed fc 02") ) ret -1)
         )   
        (print (Json:lisp->json ret))
-       (exit)
     )   
 )
 
@@ -92,7 +82,6 @@
 				(print (nth 0 (NICKS mac_addr)) (nth 1 (NICKS mac_addr)) "|"  "d8 " short_addr " ed fc 02" "\n")
         )   
 ;       (print (Json:lisp->json ret))
-        (exit)
     )   
 )
 
@@ -101,7 +90,4 @@
 
 
 
-
-(print "Web api interface 1.0")
-
-
+%>

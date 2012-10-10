@@ -687,7 +687,7 @@ class Ball {
   	  //alert(nomcmd.length);
   	  jQuery.ajax({
 //		url: "http://"+server+"/test.cgi?cmd="+nomcmd,
-		url: server+"/test.cgi?cmd="+nomcmd,
+		url: server+"/test.nl?cmd="+nomcmd,
 		async: false,
 		timeout:4100,
   		success: function(data,textStatus, jqXHR) {
