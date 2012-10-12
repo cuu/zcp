@@ -360,7 +360,7 @@
 ;(share talk 3) (wait-pid cpid)
 (define (get_all_macs)
 	(dolist (x (CKV))
-		(test (string "6d " (nth 0 x))  500)
+		(test (string "03 " (nth 0 x))  500)
 	)
 )
 
@@ -394,6 +394,14 @@
 	)	
 )
 
+(define (clean_ckv)
+	(delete 'CKV)
+	(save "CKV.lsp" 'CKV)
+	(new Tree 'CKV)
+	(save "CKV.lsp" 'CKV)
+)
+
+
 (if (= (get-pid) 0)
 	(begin
 		(println "parent process")
@@ -408,9 +416,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; last part
 (if (true? create)
     (begin
-        (test "ca" 500)
+		(clean_ckv)	
+        (test "01" 500)
         (sleep 8000);;
-        (println "test ca is over")
+        (println "get node is over")
         (get_all_macs)
 		(insert_to_nicks)
     )   
