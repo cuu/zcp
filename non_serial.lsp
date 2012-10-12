@@ -181,6 +181,16 @@
 						
 						(setq ret (share content))
 						;(println "1st " (share content))
+						(let (tmp_lst (parse (share content) " "))
+							(if (or (= (nth 0 tmp_lst) "2") (= (nth 0 tmp_lst) "02"))	
+								(begin	
+									(setq short_addr (string (nth 1 tmp_lst) " " (nth  2 tmp_lst)) )
+									(CKV short_addr (list nil nil (date-value)) )
+									(save "CKV.lsp" 'CKV)
+								)
+							)
+						)
+
 						(if (and (= (nth 0 (share content)) "c" ) (= (nth 1 (share content)) "e"))
 							(begin
 							;	(assert "dealing with 0xce")
@@ -193,11 +203,11 @@
 								;(println "cur_par " cur_par)
 								(let (tmp_lst (parse (share content) " "));;;
 
-                                (if (= (length query) 1);; ca
-                                        (setq  cur_par "00 00")    
-                                    (= (length query) 3);; caxxxx
-                                        (setq cur_par (string (format "%x" (char (nth 1 query))) " " (format "%x" (char (nth 2 query)))) )
-                                )  
+;;                                (if (= (length query) 1);; ca
+;                                        (setq  cur_par "00 00")    
+;                                    (= (length query) 3);; caxxxx
+;                                        (setq cur_par (string (format "%x" (char (nth 1 query))) " " (format "%x" (char (nth 2 query)))) )
+;                                 )  
 
 								;(println tmp_lst)
 								(if (> (int (nth 1 tmp_lst) 0 16) 0)
