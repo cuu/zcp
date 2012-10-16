@@ -360,7 +360,7 @@
 ;(share talk 3) (wait-pid cpid)
 (define (get_all_macs)
 	(dolist (x (CKV))
-		(test (string "03 " (nth 0 x))  500)
+		(test (string "03 " (nth 0 x))  300)
 	)
 )
 
@@ -417,8 +417,8 @@
 (if (true? create)
     (begin
 		(clean_ckv)	
-        (test "01" 500)
-        (sleep 8000);;
+        (test "01" 300)
+        ;(sleep 8000)
         (println "get node is over")
         (get_all_macs)
 		(insert_to_nicks)

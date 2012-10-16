@@ -67,7 +67,14 @@
 
 	.iCheckbox_checkbox {
 	}
+	.io_cmd
+	{
+		width:300px;
+	}
+	.io_type
+	{
 
+	}
 </style>
 
 <script type="text/javascript">
@@ -147,7 +154,7 @@
 
 </div>
 
-<hr size=1 >
+<hr size=5 style="background:#000" >
 <div class="demo">
 <% 
 	(dolist (x (CKV))
@@ -156,7 +163,31 @@
 						(print (nth 0 (NICKS mac_addr) ))
 						(print [text]" /> <input type="text" class="roomname" value="[/text])
 						(print (nth 1 (NICKS mac_addr)))	
-						(print [text]" /><input type="button" value="change" /><img class='ajaxload_img' src="loadinfo.net_trans.gif" align="middle" /> <label></label> <input type="hidden" value="[/text]) (print (nth 0 (nth 1 x)) ) (print [text]" /></div> [/text] )
+						(print [text]" /> [/text] )
+						(print [text] <br /> [/text] )
+						(print [text] 
+						<input type="text" value="" class="io_cmd" /> 
+							<select ><option value=1>Input</option> <option value=2>Output</option> </select><br />
+						<input type="text" value="" class="io_cmd" />
+							<select ><option value=1>Input</option> <option value=2>Output</option> </select><br />
+						<input type="text" value="" class="io_cmd" /> 
+							<select ><option value=1>Input</option> <option value=2>Output</option> </select><br />
+						<input type="text" value="" class="io_cmd" /> 
+							<select ><option value=1>Input</option> <option value=2>Output</option> </select><br />
+						<input type="text" value="" class="io_cmd" /> 
+							<select ><option value=1>Input</option> <option value=2>Output</option> </select><br />
+						<input type="text" value="" class="io_cmd" /> 
+							<select ><option value=1>Input</option> <option value=2>Output</option> </select><br />
+						<input type="text" value="" class="io_cmd" />
+							<select ><option value=1>Input</option> <option value=2>Output</option> </select><br />
+						<input type="text" value="" class="io_cmd" />
+							<select ><option value=1>Input</option> <option value=2>Output</option> </select><br />
+						[/text])
+						(print [text]<input type="button" value="change" /><img class='ajaxload_img' src="loadinfo.net_trans.gif" align="middle" /> <label></label> <input type="hidden" value="[/text]) 
+						
+						(print (nth 0 (nth 1 x))  "\"/>" )
+						(print "<hr />")
+						(print [text] </div> [/text] )
 					
 			
 	)
