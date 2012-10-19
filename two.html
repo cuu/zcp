@@ -18,6 +18,8 @@
 <script type="text/javascript" src="jquery-ui-sliderAccess.js"></script>
 
 <script src="jquery.ui.touch-punch.min.js"></script>
+
+
 <style type="text/css">
 
 .ui-widget { font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; font-size: 1.1em; }
@@ -73,7 +75,13 @@
 	}
 	.io_cmd
 	{
-		width:300px;
+/*		width:300px; */
+		border:1px solid #ccc;
+		height:23px;
+	}
+	.io_cmd select
+	{
+			margin-right:10px;
 	}
 	.io_type
 	{
@@ -81,6 +89,7 @@
 	}
 	body
 	{
+		font-size: 62.5%; font-family:"Verdana",sans-serif; margin: 70px 10px;
 	}
 	.roomname
 	{
@@ -89,6 +98,22 @@
 	.devname
 	{
 		border:1px solid;
+	}
+	input
+	{
+		/*-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; */
+		-webkit-appearance: none;
+		padding:3px;
+		border:1px solid #ccc;
+		
+	}
+	ul 
+	{
+	  list-style: none;
+	}
+	select
+	{
+/*		border:1px solid #ccc; */
 	}
 </style>
 
@@ -121,7 +146,7 @@
 	{
 			if( isiPad() || isiPhone() )
 			{
-				$("body").width(1048);
+				$("body").width(1200);
 			}
 			$(".demo input[type=button]").button();
 			$(".demo input[type=button]").click( function()
@@ -175,6 +200,29 @@
 			$(".timer1").datetimepicker();
 			$(".timer2").datetimepicker();
 
+			$('select[name="device_type"]').each(
+				function()
+				{
+					if( $(this).find('option:selected').val() == "1")
+					{
+						$(this).parent().parent().find("td:last").hide();
+					}else if( $(this).find('option:selected').val() == "2")
+					{
+						$(this).parent().parent().find("td:last").show();
+					}
+				}
+			);
+	
+			$('select[name="device_type"]').change( function() {
+				if( $(this).find('option:selected').val() == "1")
+				{
+					$(this).parent().parent().find("td:last").fadeOut("fast");
+
+				}else if( $(this).find('option:selected').val() == "2")
+				{
+					$(this).parent().parent().find("td:last").fadeIn("fast");
+				}
+			});
 			
 			
 	});
@@ -205,40 +253,36 @@
 						(print [text] 
 						<table style="table-layout:fixed;">
 						<tr>
+							<td>端口编号</td>
 							<td>端口电器名</td>
 							<td>命令内容</td>
 							<td>端口类型</td>
 							<td>定时操作</td>
 								
-						</tr>	
+						</tr>
+						[/text])
+						(dotimes (x 4)
+						(print [text]	
 						<tr>
+							<td><label>[cmd]x[/cmd]</label>
 							<td><input type="text" value="" /> </td>
-							<td><input type="text" value="" class="io_cmd" /> </td>
-							<td><select name="device_type" ><option value=1>Input</option> <option value=2>Output</option> </select></td>
-							<td>
-								<select name="timer_type"><option value=1>每天循环</option><option value=2>隔几天</option><option value=3>未来某一天的某一点</option></select>
+							<td><div  class="io_cmd" > 
+								<select name="open_port"><option value=1>打开</option><option value=2>关闭</option></select> -&gt;
+								<select name="dev_lst"><option value=1>房间1灯泡1 2f 0b</option></select> -&gt;
+								<select name="port_lst"><option value=1>端口1</option><option value=2>端口2</option><option value=3>端口3</option></select>
+								</div> </td>
+							<td><select class="default" name="device_type" ><option value=1>Input</option> <option value=2>Output</option> </select></td>
+							<td style="display:none;">
+								<select class="default" name="timer_type"><option value=1>每天循环</option><option value=2>隔几天</option><option value=3>未来某一天的某一点</option></select>
 							<input type="text" class="timer1" value=""  readonly="readonly" /> 
 							<select name="operator1"><option value=1>On</option> <option value=2>Off</option><option value=3>On|Off</option></select>
 							<input type="text" class="timer2" value="" readonly="readonly" />
 							<select name="operator2"><option value=1>On</option> <option value=2>Off</option><option value=3>On|Off</option></select>
 							</td>
 						</tr>
-						
-						<tr>
-							<td><input type="text" value="" /> </td>		
-							<td><input type="text" value="" class="io_cmd" /></td>
-							<td>	<select ><option value=1>Input</option> <option value=2>Output</option> </select></td>
-						</tr>
-						<tr>
-							<td><input type="text" value="" /> </td>
-							<td><input type="text" value="" class="io_cmd" /> </td>
-							<td> <select ><option value=1>Input</option> <option value=2>Output</option> </select></td>
-						</tr>
-						<tr>
-							<td><input type="text" value="" /> </td>
-							<td><input type="text" value="" class="io_cmd" /> </td>
-							<td><select ><option value=1>Input</option> <option value=2>Output</option> </select></td>
-						</tr>
+						[/text])
+						)
+						(print [text]
 						</table>
 						
 						[/text])
