@@ -82,6 +82,14 @@
 	body
 	{
 	}
+	.roomname
+	{
+		border:1px solid;
+	}
+	.devname
+	{
+		border:1px solid;
+	}
 </style>
 
 <script type="text/javascript">
@@ -163,10 +171,10 @@
 					}
 
 			});
-			$('.io_cmd').each(function() {
-				$(this).parent().children("#timer1").datetimepicker();
-				$(this).parent().children("#timer2").datetimepicker();
-			});
+			
+			$(".timer1").datetimepicker();
+			$(".timer2").datetimepicker();
+
 			
 			
 	});
@@ -177,7 +185,7 @@
 <body>
 
 <div class='head_title'>
-<h1> Zigbee模块 关联名 设定:</h1>
+<h1> Zigbee模块 设定:</h1>
 
 </div>
 
@@ -186,42 +194,52 @@
 <% 
 	(dolist (x (CKV))
 			(setq  mac_addr (nth 0 (nth 1 x)))	
-						(print "<div>" x ) (print [text] <input type="text"  value="[/text]) 
+						(print "<div>" x ) 
+						(print [text] <input type="text" class="roomname"  value="[/text]) 
 						(print (nth 0 (NICKS mac_addr) ))
-						(print [text]" /> <input type="text" class="roomname" value="[/text])
+						(print [text]" /> <input type="text" class="devname" value="[/text])
 						(print (nth 1 (NICKS mac_addr)))	
 						(print [text]" /> [/text] )
 						(print [text] <br /> [/text] )
+
 						(print [text] 
 						<table style="table-layout:fixed;">
 						<tr>
+							<td>端口电器名</td>
+							<td>命令内容</td>
+							<td>端口类型</td>
+							<td>定时操作</td>
+								
+						</tr>	
+						<tr>
+							<td><input type="text" value="" /> </td>
 							<td><input type="text" value="" class="io_cmd" /> </td>
-							<td>	<select name="device_type" ><option value=1>Input</option> <option value=2>Output</option> </select></td>
-							<td>	<label >定时操作:</label></td>
-							<td>	<select name="timer_type"><option value=1>每天循环</option><option value=2>隔几天</option><option value=3>未来某一天的某一点</option></select></td>
-							<td>	<input type="text" id="timer1" value=""  readonly="readonly" /> </td>
-							<td>	<select name="operator1"><option value=1>On</option> <option value=2>Off</option><option value=3>On|Off</option></select></td>
-							<td>	<input type="text" id="timer2" value="" readonly="readonly" /></td>
-							<td>	<select name="operator2"><option value=1>On</option> <option value=2>Off</option><option value=3>On|Off</option></select>	</td>
+							<td><select name="device_type" ><option value=1>Input</option> <option value=2>Output</option> </select></td>
+							<td>
+								<select name="timer_type"><option value=1>每天循环</option><option value=2>隔几天</option><option value=3>未来某一天的某一点</option></select>
+							<input type="text" class="timer1" value=""  readonly="readonly" /> 
+							<select name="operator1"><option value=1>On</option> <option value=2>Off</option><option value=3>On|Off</option></select>
+							<input type="text" class="timer2" value="" readonly="readonly" />
+							<select name="operator2"><option value=1>On</option> <option value=2>Off</option><option value=3>On|Off</option></select>
+							</td>
 						</tr>
 						
-						<tr>		
+						<tr>
+							<td><input type="text" value="" /> </td>		
 							<td><input type="text" value="" class="io_cmd" /></td>
 							<td>	<select ><option value=1>Input</option> <option value=2>Output</option> </select></td>
 						</tr>
-
-						<input type="text" value="" class="io_cmd" /> 
-							<select ><option value=1>Input</option> <option value=2>Output</option> </select><br />
-						<input type="text" value="" class="io_cmd" /> 
-							<select ><option value=1>Input</option> <option value=2>Output</option> </select><br />
-						<input type="text" value="" class="io_cmd" /> 
-							<select ><option value=1>Input</option> <option value=2>Output</option> </select><br />
-						<input type="text" value="" class="io_cmd" /> 
-							<select ><option value=1>Input</option> <option value=2>Output</option> </select><br />
-						<input type="text" value="" class="io_cmd" />
-							<select ><option value=1>Input</option> <option value=2>Output</option> </select><br />
-						<input type="text" value="" class="io_cmd" />
-							<select ><option value=1>Input</option> <option value=2>Output</option> </select><br />
+						<tr>
+							<td><input type="text" value="" /> </td>
+							<td><input type="text" value="" class="io_cmd" /> </td>
+							<td> <select ><option value=1>Input</option> <option value=2>Output</option> </select></td>
+						</tr>
+						<tr>
+							<td><input type="text" value="" /> </td>
+							<td><input type="text" value="" class="io_cmd" /> </td>
+							<td><select ><option value=1>Input</option> <option value=2>Output</option> </select></td>
+						</tr>
+						</table>
 						
 						[/text])
 						(print [text]<input type="button" value="想好了,让设置生效" /><img class='ajaxload_img' src="loadinfo.net_trans.gif" align="middle" /> <label></label> <input type="hidden" value="[/text]) 
