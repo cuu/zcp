@@ -89,15 +89,28 @@
 	}
 	body
 	{
-		font-size: 62.5%; font-family:"Verdana",sans-serif; margin: 70px 10px;
+		font-size: 62.5%; font-family:"Verdana",sans-serif;
+		margin-left:15px;
 	}
 	.roomname
 	{
-		border:1px solid;
+		border:1px solid transparent;
+		
+		font-size:30px;
+		padding:3px 0px 3px 3px;
+		height:40px;
+		width:200px;
+		background:transparent;
 	}
+
 	.devname
 	{
-		border:1px solid;
+		border:1px solid transparent;
+		font-size:30px;
+		padding:3px 0px 3px 3px;
+		height:40px;
+		width:200px;
+		background:transparent;
 	}
 	input
 	{
@@ -133,6 +146,14 @@
 
 	jQuery.noConflict();
 
+	jQuery.fn.border_color_animate = function(color, time, callback) {
+	  var obj = {};
+	  $(["Left", "Right", "Top", "Bottom"]).each(function() {
+	   obj["border"+this+"Color"] = color;
+	  });
+	  this.animate(obj, time, callback);
+	};
+
 	if ( typeof(console) == 'undefined' ) {
 		var console = {};
 	}
@@ -146,7 +167,7 @@
 	{
 			if( isiPad() || isiPhone() )
 			{
-				$("body").width(1200);
+				$("body").width(1300);
 			}
 			$(".demo input[type=button]").button();
 			$(".demo input[type=button]").click( function()
@@ -224,6 +245,15 @@
 				}
 			});
 			
+			$(".devname, .roomname").hover(function()
+			{
+				$(this).css("borderBottom", "1px solid #ccc");
+			},
+			function()
+			{
+				$(this).css("borderBottom", "1px solid transparent");
+			});	
+				
 			
 	});
 
@@ -234,7 +264,11 @@
 
 <div class='head_title'>
 <h1> Zigbee模块 设定:</h1>
-
+	<span class='gray'>小提示:</span>
+	<br />
+	<span >只有Output类型的端口,才有定时功能</span><br />
+	<span> input类型只有按键/开关功能</span><br />
+	<span> 按键/开关 去操作的端口,必须是output类型,一个按键或开关,不能去操作另一个按键或开关</span>
 </div>
 
 <hr size=5 style="background:#000" >
@@ -242,16 +276,20 @@
 <% 
 	(dolist (x (CKV))
 			(setq  mac_addr (nth 0 (nth 1 x)))	
-						(print "<div>" x ) 
+						(if (= (mod $idx 2) 0)
+							(print "<div style='background:#F5F5F5;'> "  ) 
+							(print "<div>")
+						)
 						(print [text] <input type="text" class="roomname"  value="[/text]) 
 						(print (nth 0 (NICKS mac_addr) ))
 						(print [text]" /> <input type="text" class="devname" value="[/text])
 						(print (nth 1 (NICKS mac_addr)))	
-						(print [text]" /> [/text] )
+						(print [text]" />  [/text] )
+						(print x )
 						(print [text] <br /> [/text] )
 
 						(print [text] 
-						<table style="table-layout:fixed;">
+						<table style="table-layout:fixed;" cellspacing="10">
 						<tr>
 							<td>端口编号</td>
 							<td>端口电器名</td>
@@ -261,17 +299,29 @@
 								
 						</tr>
 						[/text])
-						(dotimes (x 4)
+						(dotimes (z 4)
 						(print [text]	
 						<tr>
-							<td><label>[cmd]x[/cmd]</label>
+							<td><label>[/text])
+							(print "端口" (+ z 1))
+							(print [text] </label>
 							<td><input type="text" value="" /> </td>
 							<td><div  class="io_cmd" > 
-								<select name="open_port"><option value=1>打开</option><option value=2>关闭</option></select> -&gt;
-								<select name="dev_lst"><option value=1>房间1灯泡1 2f 0b</option></select> -&gt;
-								<select name="port_lst"><option value=1>端口1</option><option value=2>端口2</option><option value=3>端口3</option></select>
+								<select name="open_port"><option value=1>打开</option><option value=2>关闭</option></select> ...
+								<select name="dev_lst">
+							[/text])
+									(dolist (y (CKV))
+										(setq mac_addr_2 (nth 0 (nth 1 y)))
+										(print  "<option value=" $idx ">" (nth 0 (NICKS mac_addr_2)) (nth 1 (NICKS mac_addr_2)) " " (nth 0 y) " </option>")
+									)
+						
+						(print [text]			
+								</select> ...
+								<select name="port_lst"><option value=1>端口1</option><option value=2>端口2</option><option value=3>端口3</option>
+													<option value=4>端口4</option>
+								</select>
 								</div> </td>
-							<td><select class="default" name="device_type" ><option value=1>Input</option> <option value=2>Output</option> </select></td>
+							<td><select class="default" name="device_type" ><option value=1>Input</option> <option value=2>Output</option><option value=3>Disable</option> </select></td>
 							<td style="display:none;">
 								<select class="default" name="timer_type"><option value=1>每天循环</option><option value=2>隔几天</option><option value=3>未来某一天的某一点</option></select>
 							<input type="text" class="timer1" value=""  readonly="readonly" /> 
