@@ -19,6 +19,8 @@
 
 <script src="jquery.ui.touch-punch.min.js"></script>
 
+<script src="jquery.selectBox.js"></script>
+<link type="text/css" href="jquery.selectBox.css" rel="stylesheet" />
 
 <style type="text/css">
 
@@ -218,8 +220,8 @@
 
 			});
 			
-			$(".timer1").datetimepicker();
-			$(".timer2").datetimepicker();
+			$(".timer1,.timer2").datetimepicker({ hourGrid: 4, minuteGrid: 10 } );
+//			$(".timer2").datetimepicker();
 
 			$('select[name="device_type"]').each(
 				function()
@@ -238,10 +240,16 @@
 				if( $(this).find('option:selected').val() == "1")
 				{
 					$(this).parent().parent().find("td:last").fadeOut("fast");
+					$(this).parent().parent().find("div.io_cmd").fadeIn("fast");
 
 				}else if( $(this).find('option:selected').val() == "2")
-				{
+				{	
 					$(this).parent().parent().find("td:last").fadeIn("fast");
+					$(this).parent().parent().find("div.io_cmd").fadeIn("fast");
+				}else if( $(this).find('option:selected').val() == "3")
+				{
+					$(this).parent().parent().find("td:last").fadeOut("fast");
+					$(this).parent().parent().find("div.io_cmd").fadeOut("fast");
 				}
 			});
 			
@@ -254,7 +262,8 @@
 				$(this).css("borderBottom", "1px solid transparent");
 			});	
 				
-			
+//			$("select").selectBox();
+			$('select[name="timer_type"]').selectBox();	
 	});
 
 </script>

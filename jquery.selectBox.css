@@ -1,6 +1,7 @@
 /* Dropdown control */
 .selectBox-dropdown {
-	min-width: 150px;
+/*	min-width: 150px;  */
+	padding-right:10px;
 	position: relative;
 	border: solid 1px #BBB;
 	line-height: 1.5;
@@ -38,7 +39,7 @@
 }
 
 .selectBox-dropdown .selectBox-label {
-	padding: 2px 8px;
+	padding: 2px 18px 0px 8px;
 	display: inline-block;
 	white-space: nowrap;
 	overflow: hidden;
